@@ -7,10 +7,24 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        // Tailwind Configuration for Dark Mode
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#020617',
+                        lightBg: '#f8fafc',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #020617;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         .glass-card {
             background: rgba(255, 255, 255, 0.03);
@@ -18,13 +32,16 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
         }
+        .light .glass-card {
+            background: rgba(15, 23, 42, 0.03);
+            border: 1px solid rgba(15, 23, 42, 0.1);
+        }
         .glass-card:hover {
             border-color: rgba(59, 130, 246, 0.5);
-            background: rgba(255, 255, 255, 0.05);
             transform: translateY(-5px);
         }
         .text-gradient {
-            background: linear-gradient(to right, #60a5fa, #2dd4bf);
+            background: linear-gradient(to right, #3b82f6, #2dd4bf);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -35,103 +52,105 @@
             position: absolute;
             width: 500px;
             height: 500px;
-            background: rgba(59, 130, 246, 0.2);
+            background: rgba(59, 130, 246, 0.15);
             filter: blur(80px);
             border-radius: 50%;
             z-index: -1;
         }
     </style>
 </head>
-<body class="text-slate-200">
+<body class="bg-lightBg text-slate-800 dark:bg-darkBg dark:text-slate-200">
 
     <!-- Navbar -->
-    <nav class="fixed top-0 w-full z-50 glass-card border-none bg-slate-950/50">
+    <nav class="fixed top-0 w-full z-50 border-b border-slate-200/50 dark:border-white/5 bg-lightBg/80 dark:bg-darkBg/80 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="text-2xl font-extrabold tracking-tighter text-white">
-                DEV<span class="text-blue-500">STUDIO</span>
+            <div class="text-2xl font-extrabold tracking-tighter text-slate-900 dark:text-white">
+                DEV<span class="text-blue-600 dark:text-blue-500">STUDIO</span>
             </div>
-            <div class="hidden md:flex space-x-8 font-medium text-sm text-slate-400 uppercase tracking-widest">
-                <a href="#home" class="hover:text-blue-400 transition">Beranda</a>
-                <a href="#services" class="hover:text-blue-400 transition">Layanan</a>
-                <a href="#portfolio" class="hover:text-blue-400 transition">Portofolio</a>
-                <a href="#contact" class="hover:text-blue-400 transition">Kontak</a>
+            
+            <div class="hidden md:flex space-x-8 font-medium text-sm text-slate-600 dark:text-slate-400 uppercase tracking-widest">
+                <a href="#home" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Beranda</a>
+                <a href="#services" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Layanan</a>
+                <a href="#portfolio" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Portofolio</a>
+                <a href="#contact" class="hover:text-blue-600 dark:hover:text-blue-400 transition">Kontak</a>
             </div>
-            <a href="#contact" class="bg-gradient-primary text-slate-950 px-6 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition shadow-lg shadow-blue-500/20">
-                Mulai Projek
-            </a>
+
+            <div class="flex items-center space-x-4">
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" class="p-2 rounded-xl glass-card border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 transition">
+                    <i id="theme-icon-dark" data-lucide="moon" class="w-5 h-5 hidden dark:block text-blue-400"></i>
+                    <i id="theme-icon-light" data-lucide="sun" class="w-5 h-5 block dark:hidden text-orange-500"></i>
+                </button>
+                
+                <a href="#contact" class="bg-gradient-primary text-white dark:text-slate-950 px-6 py-2.5 rounded-full font-bold text-sm hover:opacity-90 transition shadow-lg shadow-blue-500/20">
+                    Mulai Projek
+                </a>
+            </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section id="home" class="relative pt-32 pb-20 overflow-hidden min-h-screen flex items-center">
-        <div class="blob top-0 -left-20 animate-pulse"></div>
-        <div class="blob bottom-0 -right-20 opacity-50"></div>
+        <div class="blob top-0 -left-20 animate-pulse opacity-50 dark:opacity-100"></div>
+        <div class="blob bottom-0 -right-20 opacity-30 dark:opacity-50"></div>
         
         <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
             <div class="space-y-8">
-                <div class="inline-flex items-center space-x-2 bg-blue-500/10 border border-blue-500/20 px-4 py-2 rounded-full">
-                    <span class="w-2 h-2 bg-blue-500 rounded-full animate-ping"></span>
-                    <span class="text-xs font-bold text-blue-400 tracking-widest uppercase">Solusi Digital Terpercaya</span>
+                <div class="inline-flex items-center space-x-2 bg-blue-600/10 dark:bg-blue-500/10 border border-blue-600/20 dark:border-blue-500/20 px-4 py-2 rounded-full">
+                    <span class="w-2 h-2 bg-blue-600 dark:bg-blue-500 rounded-full animate-ping"></span>
+                    <span class="text-xs font-bold text-blue-700 dark:text-blue-400 tracking-widest uppercase">Solusi Digital Terpercaya</span>
                 </div>
-                <h1 class="text-6xl md:text-7xl font-extrabold leading-tight text-white tracking-tight">
+                <h1 class="text-6xl md:text-7xl font-extrabold leading-tight text-slate-900 dark:text-white tracking-tight">
                     Website Anda Adalah <span class="text-gradient">Investasi Terbaik.</span>
                 </h1>
-                <p class="text-lg text-slate-400 leading-relaxed max-w-xl">
+                <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-xl">
                     Kami tidak hanya membangun baris kode; kami membangun masa depan bisnis Anda melalui pengalaman digital yang luar biasa, cepat, dan berorientasi pada hasil.
                 </p>
                 <div class="flex flex-wrap gap-4">
-                    <button class="bg-white text-slate-950 px-8 py-4 rounded-2xl font-bold flex items-center group hover:bg-blue-50 transition">
+                    <button class="bg-blue-600 text-white dark:bg-white dark:text-slate-950 px-8 py-4 rounded-2xl font-bold flex items-center group hover:bg-blue-700 dark:hover:bg-blue-50 transition shadow-xl shadow-blue-600/20">
                         Lihat Penawaran
                         <i data-lucide="arrow-right" class="ml-2 w-5 h-5 group-hover:translate-x-1 transition"></i>
                     </button>
-                    <button class="glass-card px-8 py-4 rounded-2xl font-bold">
+                    <button class="glass-card px-8 py-4 rounded-2xl font-bold border-slate-200 dark:border-white/10 text-slate-700 dark:text-white">
                         Kenapa Kami?
                     </button>
                 </div>
-                <div class="flex items-center space-x-6 pt-4 border-t border-slate-800">
+                <div class="flex items-center space-x-6 pt-4 border-t border-slate-200 dark:border-slate-800">
                     <div>
-                        <p class="text-2xl font-bold text-white">50+</p>
+                        <p class="text-2xl font-bold text-slate-900 dark:text-white">50+</p>
                         <p class="text-xs text-slate-500 uppercase font-semibold">Klien Aktif</p>
                     </div>
-                    <div class="h-8 w-px bg-slate-800"></div>
+                    <div class="h-8 w-px bg-slate-200 dark:bg-slate-800"></div>
                     <div>
-                        <p class="text-2xl font-bold text-white">100%</p>
+                        <p class="text-2xl font-bold text-slate-900 dark:text-white">100%</p>
                         <p class="text-xs text-slate-500 uppercase font-semibold">Uptime Guarantee</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Hero Image/Graphic -->
+            <!-- Hero Image Mockup -->
             <div class="relative hidden lg:block">
-                <div class="glass-card p-4 rounded-[2rem] relative overflow-hidden group">
-                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-700"></div>
-                    <div class="bg-slate-900 rounded-[1.5rem] p-8 aspect-square flex flex-col justify-between border border-white/5">
+                <div class="glass-card p-4 rounded-[2.5rem] relative overflow-hidden group border-slate-200 dark:border-white/10 shadow-2xl">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-700"></div>
+                    <div class="bg-white dark:bg-slate-900 rounded-[2rem] p-8 aspect-square flex flex-col justify-between border border-slate-100 dark:border-white/5">
                         <div class="flex justify-between items-start">
                             <div class="space-y-2">
-                                <div class="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center">
+                                <div class="w-12 h-12 bg-blue-600 dark:bg-blue-500 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/40">
                                     <i data-lucide="zap" class="text-white w-6 h-6"></i>
                                 </div>
-                                <h3 class="text-xl font-bold text-white">Performance</h3>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white">Performance</h3>
                             </div>
-                            <span class="text-4xl font-black text-slate-800 tracking-tighter">01</span>
+                            <span class="text-4xl font-black text-slate-100 dark:text-slate-800 tracking-tighter italic">OPTIMIZED</span>
                         </div>
                         <div class="space-y-4">
-                            <div class="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
-                                <div class="h-full bg-blue-500 w-[98%]"></div>
+                            <div class="flex justify-between text-xs font-bold uppercase tracking-widest text-slate-400">
+                                <span>Optimization</span>
+                                <span>99%</span>
                             </div>
-                            <p class="text-sm text-slate-400">Website kami dirancang untuk kecepatan maksimal dan skor SEO sempurna.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Floating Elements -->
-                <div class="absolute -top-6 -right-6 glass-card px-6 py-4 rounded-2xl shadow-2xl border-blue-500/30">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center">
-                            <i data-lucide="shield-check" class="text-green-400 w-6 h-6"></i>
-                        </div>
-                        <div>
-                            <p class="text-xs text-slate-400">Keamanan</p>
-                            <p class="text-sm font-bold text-white">SSL Terenkripsi</p>
+                            <div class="h-2.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-primary w-[99%] rounded-full"></div>
+                            </div>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">Setiap proyek kami melewati uji performa Google Lighthouse yang ketat.</p>
                         </div>
                     </div>
                 </div>
@@ -140,41 +159,41 @@
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="py-24 bg-slate-950/50 relative">
+    <section id="services" class="py-24 bg-slate-100/50 dark:bg-slate-950/50 relative">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center space-y-4 mb-16">
-                <h2 class="text-sm font-bold text-blue-500 tracking-[0.3em] uppercase">Layanan Kami</h2>
-                <h3 class="text-4xl md:text-5xl font-bold text-white tracking-tight">Solusi Digital Lengkap</h3>
+                <h2 class="text-sm font-bold text-blue-600 dark:text-blue-500 tracking-[0.3em] uppercase">Layanan Kami</h2>
+                <h3 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight">Solusi Digital Lengkap</h3>
             </div>
             
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Service Card 1 -->
-                <div class="glass-card p-8 rounded-3xl group">
-                    <div class="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-500 transition-colors duration-500">
-                        <i data-lucide="layout" class="text-blue-500 w-7 h-7 group-hover:text-white"></i>
+                <div class="glass-card p-8 rounded-3xl group border-slate-200 dark:border-white/10 shadow-sm">
+                    <div class="w-14 h-14 bg-blue-600/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-all duration-500 group-hover:shadow-lg group-hover:shadow-blue-500/30">
+                        <i data-lucide="layout" class="text-blue-600 w-7 h-7 group-hover:text-white"></i>
                     </div>
-                    <h4 class="text-xl font-bold mb-4 text-white">Web Development</h4>
-                    <p class="text-slate-400 leading-relaxed text-sm">
+                    <h4 class="text-xl font-bold mb-4 text-slate-900 dark:text-white">Web Development</h4>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
                         Kami membangun website kustom yang cepat, responsif, dan mudah dikelola menggunakan teknologi terbaru.
                     </p>
                 </div>
                 <!-- Service Card 2 -->
-                <div class="glass-card p-8 rounded-3xl group">
-                    <div class="w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-emerald-500 transition-colors duration-500">
-                        <i data-lucide="shopping-cart" class="text-emerald-500 w-7 h-7 group-hover:text-white"></i>
+                <div class="glass-card p-8 rounded-3xl group border-slate-200 dark:border-white/10 shadow-sm">
+                    <div class="w-14 h-14 bg-emerald-600/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-emerald-600 transition-all duration-500 group-hover:shadow-lg group-hover:shadow-emerald-500/30">
+                        <i data-lucide="shopping-cart" class="text-emerald-600 w-7 h-7 group-hover:text-white"></i>
                     </div>
-                    <h4 class="text-xl font-bold mb-4 text-white">E-Commerce</h4>
-                    <p class="text-slate-400 leading-relaxed text-sm">
+                    <h4 class="text-xl font-bold mb-4 text-slate-900 dark:text-white">E-Commerce</h4>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
                         Solusi toko online profesional dengan integrasi pembayaran otomatis dan manajemen stok yang efisien.
                     </p>
                 </div>
                 <!-- Service Card 3 -->
-                <div class="glass-card p-8 rounded-3xl group">
-                    <div class="w-14 h-14 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-purple-500 transition-colors duration-500">
-                        <i data-lucide="search" class="text-purple-500 w-7 h-7 group-hover:text-white"></i>
+                <div class="glass-card p-8 rounded-3xl group border-slate-200 dark:border-white/10 shadow-sm">
+                    <div class="w-14 h-14 bg-purple-600/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-purple-600 transition-all duration-500 group-hover:shadow-lg group-hover:shadow-purple-500/30">
+                        <i data-lucide="search" class="text-purple-600 w-7 h-7 group-hover:text-white"></i>
                     </div>
-                    <h4 class="text-xl font-bold mb-4 text-white">SEO Optimation</h4>
-                    <p class="text-slate-400 leading-relaxed text-sm">
+                    <h4 class="text-xl font-bold mb-4 text-slate-900 dark:text-white">SEO Optimation</h4>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
                         Meningkatkan peringkat website Anda di mesin pencari untuk mendatangkan lebih banyak pengunjung potensial.
                     </p>
                 </div>
@@ -187,46 +206,46 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                 <div class="space-y-4">
-                    <h2 class="text-sm font-bold text-blue-500 tracking-[0.3em] uppercase">Karya Kami</h2>
-                    <h3 class="text-4xl md:text-5xl font-bold text-white tracking-tight italic">Portofolio Terpilih</h3>
+                    <h2 class="text-sm font-bold text-blue-600 dark:text-blue-500 tracking-[0.3em] uppercase">Karya Kami</h2>
+                    <h3 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight">Portofolio Terpilih</h3>
                 </div>
-                <button class="text-blue-400 font-bold flex items-center hover:underline">
-                    Lihat Semua Projek <i data-lucide="arrow-up-right" class="ml-1 w-5 h-5"></i>
+                <button class="text-blue-600 dark:text-blue-400 font-bold flex items-center hover:translate-x-1 transition group">
+                    Lihat Semua Projek <i data-lucide="arrow-up-right" class="ml-1 w-5 h-5 group-hover:scale-110 transition"></i>
                 </button>
             </div>
 
             <div class="grid md:grid-cols-2 gap-10">
-                <!-- Portfolio Item -->
+                <!-- Portfolio Item 1 -->
                 <div class="group cursor-pointer">
-                    <div class="overflow-hidden rounded-[2.5rem] bg-slate-900 border border-white/5 mb-6">
+                    <div class="overflow-hidden rounded-[2.5rem] bg-slate-200 dark:bg-slate-900 border border-slate-300 dark:border-white/5 mb-6 shadow-xl">
                         <div class="aspect-video bg-gradient-to-br from-blue-600/20 to-purple-600/20 group-hover:scale-105 transition-transform duration-700 flex items-center justify-center">
-                            <span class="text-slate-700 font-bold uppercase tracking-widest text-lg">[ Preview Projek 1 ]</span>
+                            <span class="text-slate-400 dark:text-slate-700 font-bold uppercase tracking-widest text-lg">[ Preview Projek 1 ]</span>
                         </div>
                     </div>
                     <div class="flex justify-between items-start">
                         <div>
-                            <h4 class="text-2xl font-bold text-white mb-2 tracking-tight">E-Commerce Brand Fashion</h4>
-                            <p class="text-slate-500 text-sm">UI/UX Design • Development • Payment Integration</p>
+                            <h4 class="text-2xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">Fashion Hub E-Commerce</h4>
+                            <p class="text-slate-500 dark:text-slate-500 text-sm">UI/UX Design • Next.js • Stripe Payment</p>
                         </div>
-                        <div class="w-12 h-12 glass-card rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-                            <i data-lucide="external-link" class="text-white w-5 h-5"></i>
+                        <div class="w-12 h-12 glass-card rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all border-slate-200 dark:border-white/20">
+                            <i data-lucide="external-link" class="text-slate-900 dark:text-white w-5 h-5"></i>
                         </div>
                     </div>
                 </div>
                 <!-- Portfolio Item 2 -->
                 <div class="group cursor-pointer">
-                    <div class="overflow-hidden rounded-[2.5rem] bg-slate-900 border border-white/5 mb-6">
+                    <div class="overflow-hidden rounded-[2.5rem] bg-slate-200 dark:bg-slate-900 border border-slate-300 dark:border-white/5 mb-6 shadow-xl">
                         <div class="aspect-video bg-gradient-to-br from-teal-600/20 to-blue-600/20 group-hover:scale-105 transition-transform duration-700 flex items-center justify-center">
-                            <span class="text-slate-700 font-bold uppercase tracking-widest text-lg">[ Preview Projek 2 ]</span>
+                            <span class="text-slate-400 dark:text-slate-700 font-bold uppercase tracking-widest text-lg">[ Preview Projek 2 ]</span>
                         </div>
                     </div>
                     <div class="flex justify-between items-start">
                         <div>
-                            <h4 class="text-2xl font-bold text-white mb-2 tracking-tight">Dashboard Management SaaS</h4>
-                            <p class="text-slate-500 text-sm">Product Strategy • Web App • Cloud Setup</p>
+                            <h4 class="text-2xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">Enterprise SaaS Dashboard</h4>
+                            <p class="text-slate-500 dark:text-slate-500 text-sm">Product Strategy • React.js • Cloud Ops</p>
                         </div>
-                        <div class="w-12 h-12 glass-card rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-                            <i data-lucide="external-link" class="text-white w-5 h-5"></i>
+                        <div class="w-12 h-12 glass-card rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all border-slate-200 dark:border-white/20">
+                            <i data-lucide="external-link" class="text-slate-900 dark:text-white w-5 h-5"></i>
                         </div>
                     </div>
                 </div>
@@ -236,30 +255,29 @@
 
     <!-- Contact Section -->
     <section id="contact" class="py-24 relative overflow-hidden">
-        <div class="blob top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-30"></div>
         <div class="max-w-5xl mx-auto px-6">
-            <div class="glass-card p-10 md:p-16 rounded-[3rem] border-blue-500/20">
+            <div class="glass-card p-10 md:p-16 rounded-[3rem] border-slate-200 dark:border-blue-500/20 shadow-2xl">
                 <div class="grid md:grid-cols-2 gap-16">
                     <div class="space-y-8">
-                        <h3 class="text-4xl md:text-5xl font-bold text-white leading-tight">Siap Memulai <span class="text-gradient">Projek Anda?</span></h3>
-                        <p class="text-slate-400">Isi formulir di samping atau hubungi kami langsung melalui email untuk diskusi lebih mendalam.</p>
-                        <div class="space-y-4">
+                        <h3 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white leading-tight">Siap Memulai <span class="text-gradient">Projek Anda?</span></h3>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Isi formulir di samping atau hubungi kami langsung melalui email untuk diskusi lebih mendalam mengenai visi digital Anda.</p>
+                        <div class="space-y-6 pt-4">
                             <div class="flex items-center space-x-4 group">
-                                <div class="w-12 h-12 glass-card rounded-2xl flex items-center justify-center group-hover:border-blue-500 transition">
-                                    <i data-lucide="mail" class="text-blue-500 w-6 h-6"></i>
+                                <div class="w-12 h-12 glass-card rounded-2xl flex items-center justify-center border-slate-200 dark:border-white/10 group-hover:border-blue-500 transition shadow-sm">
+                                    <i data-lucide="mail" class="text-blue-600 dark:text-blue-500 w-6 h-6"></i>
                                 </div>
                                 <div>
-                                    <p class="text-xs text-slate-500 uppercase font-bold tracking-widest">Email</p>
-                                    <p class="text-white font-semibold">hello@devstudio.id</p>
+                                    <p class="text-[10px] text-slate-400 uppercase font-black tracking-widest">Email</p>
+                                    <p class="text-slate-900 dark:text-white font-bold">hello@devstudio.id</p>
                                 </div>
                             </div>
                             <div class="flex items-center space-x-4 group">
-                                <div class="w-12 h-12 glass-card rounded-2xl flex items-center justify-center group-hover:border-blue-500 transition">
-                                    <i data-lucide="phone" class="text-blue-500 w-6 h-6"></i>
+                                <div class="w-12 h-12 glass-card rounded-2xl flex items-center justify-center border-slate-200 dark:border-white/10 group-hover:border-blue-500 transition shadow-sm">
+                                    <i data-lucide="phone" class="text-blue-600 dark:text-blue-500 w-6 h-6"></i>
                                 </div>
                                 <div>
-                                    <p class="text-xs text-slate-500 uppercase font-bold tracking-widest">WhatsApp</p>
-                                    <p class="text-white font-semibold">+62 812 3456 7890</p>
+                                    <p class="text-[10px] text-slate-400 uppercase font-black tracking-widest">WhatsApp</p>
+                                    <p class="text-slate-900 dark:text-white font-bold">+62 812 3456 7890</p>
                                 </div>
                             </div>
                         </div>
@@ -267,23 +285,23 @@
                     
                     <form class="space-y-6">
                         <div class="space-y-2">
-                            <label class="text-xs font-bold text-slate-500 uppercase">Nama Lengkap</label>
-                            <input type="text" class="w-full bg-slate-900 border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-blue-500 transition text-white" placeholder="John Doe">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Nama Lengkap</label>
+                            <input type="text" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-blue-600 dark:focus:border-blue-500 transition text-slate-900 dark:text-white" placeholder="John Doe">
                         </div>
                         <div class="space-y-2">
-                            <label class="text-xs font-bold text-slate-500 uppercase">Layanan yang Dibutuhkan</label>
-                            <select class="w-full bg-slate-900 border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-blue-500 transition text-slate-400">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Layanan</label>
+                            <select class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-blue-600 dark:focus:border-blue-500 transition text-slate-600 dark:text-slate-400 appearance-none">
                                 <option>Web Development</option>
-                                <option>E-Commerce</option>
-                                <option>UI/UX Design</option>
+                                <option>E-Commerce Solution</option>
+                                <option>UI/UX & Branding</option>
                             </select>
                         </div>
                         <div class="space-y-2">
-                            <label class="text-xs font-bold text-slate-500 uppercase">Pesan</label>
-                            <textarea rows="4" class="w-full bg-slate-900 border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-blue-500 transition text-white" placeholder="Ceritakan projek Anda..."></textarea>
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Pesan</label>
+                            <textarea rows="4" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-blue-600 dark:focus:border-blue-500 transition text-slate-900 dark:text-white" placeholder="Ceritakan ide besar Anda..."></textarea>
                         </div>
-                        <button class="w-full bg-gradient-primary text-slate-950 py-4 rounded-xl font-extrabold shadow-xl shadow-blue-500/20 hover:scale-[1.02] transition active:scale-95">
-                            Kirim Sekarang
+                        <button class="w-full bg-gradient-primary text-white dark:text-slate-950 py-4 rounded-xl font-black shadow-xl shadow-blue-600/20 hover:scale-[1.02] transition active:scale-95 uppercase tracking-widest text-sm">
+                            Kirim Pesan
                         </button>
                     </form>
                 </div>
@@ -292,16 +310,16 @@
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 border-t border-white/5">
+    <footer class="py-12 border-t border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-darkBg transition-colors">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="text-xl font-black text-white">
-                DEV<span class="text-blue-500 font-extrabold uppercase tracking-tighter">STUDIO</span>
+            <div class="text-xl font-black text-slate-900 dark:text-white">
+                DEV<span class="text-blue-600 dark:text-blue-500 tracking-tighter">STUDIO</span>
             </div>
-            <p class="text-slate-500 text-sm italic">© 2024 DevStudio Creative Agency. Dibuat dengan presisi tinggi.</p>
+            <p class="text-slate-500 text-xs tracking-wide">© 2024 DevStudio. Melayani Kebutuhan Digital Anda dengan Hati.</p>
             <div class="flex space-x-6">
-                <a href="#" class="text-slate-400 hover:text-white transition"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-                <a href="#" class="text-slate-400 hover:text-white transition"><i data-lucide="twitter" class="w-5 h-5"></i></a>
-                <a href="#" class="text-slate-400 hover:text-white transition"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                <a href="#" class="text-slate-400 hover:text-blue-600 dark:hover:text-white transition"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                <a href="#" class="text-slate-400 hover:text-blue-600 dark:hover:text-white transition"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                <a href="#" class="text-slate-400 hover:text-blue-600 dark:hover:text-white transition"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
             </div>
         </div>
     </footer>
@@ -310,13 +328,33 @@
         // Inisialisasi Lucide Icons
         lucide.createIcons();
 
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        // Check for saved theme
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            if (html.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
         // Navbar Scroll Effect
         window.addEventListener('scroll', function() {
             const nav = document.querySelector('nav');
             if (window.scrollY > 50) {
-                nav.classList.add('bg-slate-950/90', 'shadow-2xl');
+                nav.classList.add('py-4', 'shadow-xl');
             } else {
-                nav.classList.remove('bg-slate-950/90', 'shadow-2xl');
+                nav.classList.remove('py-4', 'shadow-xl');
             }
         });
     </script>
